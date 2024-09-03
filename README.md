@@ -1,5 +1,7 @@
 # Scan-to-BIM for As-built Roads: Automatic Road Digital Twinning from Semantically Labeled Point Cloud Data
 
+[Paper](https://arxiv.org/abs/2406.12404) | [Citation](#citation) | [Dataset](#data)
+
 All figures and results will be released once the paper is accepted.
 
 
@@ -48,5 +50,20 @@ Please download files from the "results" folder for details.
 
 Figure 9. Geometric information extraction and IFC representation results: a) instance-level results, b) results for Road Surface and Road Side using different grid sizes, and c) road segment-level results.
 
+
+
+## Citation
+If you find this research useful, consider citing it using:
+```
+@misc{ding2024scantobimasbuiltroadsautomatic,
+      title={Scan-to-BIM for As-built Roads: Automatic Road Digital Twinning from Semantically Labeled Point Cloud Data}, 
+      author={Yuexiong Ding and Mengtian Yin and Ran Wei and Ioannis Brilakis and Muyang Liu and Xiaowei Luo},
+      year={2024},
+      eprint={2406.12404},
+      archivePrefix={arXiv},
+      primaryClass={cs.CV},
+      url={https://arxiv.org/abs/2406.12404}, 
+}
+```
 
 
