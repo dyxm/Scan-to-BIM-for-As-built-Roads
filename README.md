@@ -38,3 +38,13 @@ Figure 8. The six semantically labeled PCD segments for experiments.
 
 Table 2. Detailed information for each road segment.
 ![1725345560118](https://github.com/user-attachments/assets/cfdd5a26-445a-4b8c-a268-0c65082f3175)
+
+
+## Results
+
+![image](https://github.com/user-attachments/assets/7281fc65-bcb7-4bf7-a093-79fb2b95e623)
+
+Figure 9. Geometric information extraction and IFC representation results: a) instance-level results, b) results for Road Surface and Road Side using different grid sizes, and c) road segment-level results.
+
+
+
