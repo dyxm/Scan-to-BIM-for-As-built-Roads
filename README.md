@@ -37,6 +37,7 @@ This study used six semantically labeled PCD segments of the A11 trunk road in t
 Figure 8. The six semantically labeled PCD segments for experiments.
 
 Table 2. Detailed information for each road segment.
+
 ![1725345560118](https://github.com/user-attachments/assets/cfdd5a26-445a-4b8c-a268-0c65082f3175)
 
 
