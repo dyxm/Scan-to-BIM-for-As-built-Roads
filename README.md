@@ -11,24 +11,30 @@ Creating geometric digital twins (gDT) for as-built roads still has many limitat
 
 ## Method
 
-![1725344497913](https://github.com/user-attachments/assets/6fa5f9bb-5437-45d1-93aa-f5a01442e8df)
+![image](https://github.com/user-attachments/assets/df6506d8-ac76-4f18-b026-cd67cc3c1fa5)
 
-Figure 1. Proposed research framework.
+<div align="center">Figure 1. Research framework.</div>
+<br>
+<br>
 
+![image](https://github.com/user-attachments/assets/f42e215e-21c6-42ca-8ae5-1d002ae25abf)
 
-![1725344497913](https://github.com/user-attachments/assets/6fa5f9bb-5437-45d1-93aa-f5a01442e8df)
-
-Figure 4. Geometric information extraction algorithm for Plane-like asset instances.
-
-
-![1725344497913](https://github.com/user-attachments/assets/6fa5f9bb-5437-45d1-93aa-f5a01442e8df)
-
-Figure 5. Geometric information extraction algorithm for Guardrail asset instances.
+<div align="center">Figure 4. Geometric information extraction algorithm for Plane-like asset instances.</div>
+<br>
+<br>
 
 
-![1725344497913](https://github.com/user-attachments/assets/6fa5f9bb-5437-45d1-93aa-f5a01442e8df)
+![image](https://github.com/user-attachments/assets/cba19de0-d805-4d50-9adc-029c86fc6150)
 
-Figure 6. Geometric information extraction algorithms for Pole-like asset instances’ a) pole, b) panel art, and c) light parts.
+<div align="center">Figure 5. Geometric information extraction algorithm for Guardrail asset instances.</div>
+<br>
+<br>
+
+![image](https://github.com/user-attachments/assets/dedf2397-b62a-4f5e-be56-5ad28c655f69)
+
+<div align="center">Figure 6. Geometric information extraction algorithms for Pole-like asset instances’ a) pole, b) panel art, and c) light parts.</div>
+<br>
+<br>
 
 
 ## Data
