@@ -42,6 +42,7 @@ Table 2. Detailed information for each road segment.
 
 
 ## Results
+Please download files from the "results" folder for details.
 
 ![image](https://github.com/user-attachments/assets/7281fc65-bcb7-4bf7-a093-79fb2b95e623)
 
