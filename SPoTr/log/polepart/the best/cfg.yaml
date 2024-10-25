@@ -1,0 +1,204 @@
+!!python/object/new:openpoints.utils.config.EasyConfig
+dictitems:
+  batch_size: 1
+  cfg_basename: spotr
+  ckpt_dir: log/polepart\polepart-train-spotr-ngpus1-seed8295-20231106-210917-\checkpoint
+  cls_weighed_loss: true
+  criterion_args: !!python/object/new:openpoints.utils.config.EasyConfig
+    dictitems:
+      NAME: SmoothCrossEntropy
+      label_smoothing: 0.2
+      weight:
+      - 0.04
+      - 0.09
+      - 0.08
+      - 0.08
+      - 0.09
+      - 0.08
+      - 0.09
+      - 0.09
+      - 0.09
+      - 0.09
+      - 0.09
+      - 0.09
+  dataloader: !!python/object/new:openpoints.utils.config.EasyConfig
+    dictitems:
+      num_workers: 1
+  dataset: !!python/object/new:openpoints.utils.config.EasyConfig
+    dictitems:
+      common: !!python/object/new:openpoints.utils.config.EasyConfig
+        dictitems:
+          NAME: PolePart
+          data_root: data/polepart/
+          num_points: 2048
+          use_intensity: true
+          use_rgb: true
+      test: !!python/object/new:openpoints.utils.config.EasyConfig
+        dictitems:
+          split: test
+      train: !!python/object/new:openpoints.utils.config.EasyConfig
+        dictitems:
+          split: trainval
+      val: !!python/object/new:openpoints.utils.config.EasyConfig
+        dictitems:
+          split: test
+  datatransforms: !!python/object/new:openpoints.utils.config.EasyConfig
+    dictitems:
+      kwargs: !!python/object/new:openpoints.utils.config.EasyConfig
+        dictitems:
+          angle:
+          - 0
+          - 0
+          - 1
+          color_drop: 0.2
+          gravity_dim: 2
+          jitter_clip: 0.02
+          jitter_sigma: 0.005
+          scale:
+          - 0.9
+          - 1.1
+      train:
+      - ChromaticAutoContrast
+      - PointsToTensor
+      - PointCloudCenterAndNormalize
+      - PointCloudScaling
+      - PointCloudXYZAlign
+      - PointCloudJitter
+      - ChromaticDropGPU
+      - ChromaticNormalize
+      val:
+      - PointsToTensor
+      - PointCloudCenterAndNormalize
+      vote:
+      - PointCloudScaling
+      - ChromaticDropGPU
+  decay_epochs:
+  - 1000
+  - 1500
+  decay_rate: 0.25
+  deterministic: false
+  dist_backend: nccl
+  dist_url: tcp://localhost:8888
+  distributed: false
+  epoch: 0
+  epochs: 2000
+  exp_dir: log/polepart\polepart-train-spotr-ngpus1-seed8295-20231106-210917-
+  feature_keys: pos,x,heights
+  finetune: false
+  grad_norm_clip: 1
+  ignore_index: null
+  is_training: true
+  launcher: mp
+  layer_decay: 0
+  load_path: null
+  local_rank: 0
+  log_dir: log/polepart\polepart-train-spotr-ngpus1-seed8295-20231106-210917-
+  log_path: log/polepart\polepart-train-spotr-ngpus1-seed8295-20231106-210917-\polepart-train-spotr-ngpus1-seed8295-20231106-210917-.log
+  logname: null
+  lr: 0.01
+  min_lr: null
+  mode: train
+  model: !!python/object/new:openpoints.utils.config.EasyConfig
+    dictitems:
+      NAME: BasePartSeg
+      cls_args: !!python/object/new:openpoints.utils.config.EasyConfig
+        dictitems:
+          NAME: SegHead
+          globals: max,avg
+          in_channels: null
+          norm_args: !!python/object/new:openpoints.utils.config.EasyConfig
+            dictitems:
+              norm: bn1d
+          num_classes: 12
+      decoder_args: !!python/object/new:openpoints.utils.config.EasyConfig
+        dictitems:
+          NAME: SPoTrPartDecoder
+      encoder_args: !!python/object/new:openpoints.utils.config.EasyConfig
+        dictitems:
+          NAME: SPoTrEncoder
+          act_args: !!python/object/new:openpoints.utils.config.EasyConfig
+            dictitems:
+              act: relu
+          aggr_args: !!python/object/new:openpoints.utils.config.EasyConfig
+            dictitems:
+              feature_type: dp_df
+          blocks:
+          - 1
+          - 1
+          - 1
+          - 1
+          - 1
+          conv_args: !!python/object/new:openpoints.utils.config.EasyConfig
+            dictitems:
+              order: conv-norm-act
+          expansion: 4
+          gamma: 16
+          group_args: !!python/object/new:openpoints.utils.config.EasyConfig
+            dictitems:
+              NAME: ballquery
+              normalize_dp: true
+          in_channels: 8
+          norm_args: !!python/object/new:openpoints.utils.config.EasyConfig
+            dictitems:
+              norm: bn
+          nsample: 32
+          num_gp: 16
+          num_layers: 3
+          radius: 0.1
+          radius_scaling: 2.5
+          reduction: max
+          strides:
+          - 1
+          - 2
+          - 2
+          - 2
+          - 2
+          tau_delta: 0.1
+          width: 128
+  mp: false
+  multiprocessing_distributed: false
+  ngpus_per_node: 1
+  normal_channel: true
+  num_classes: 12
+  num_points: 2048
+  num_votes: 0
+  optimizer: !!python/object/new:openpoints.utils.config.EasyConfig
+    dictitems:
+      NAME: sgd
+      weight_decay: 0.0001
+  pretrained_path: null
+  print_freq: 10
+  rank: 0
+  refine: false
+  resume: false
+  root_dir: log/polepart
+  run_dir: log/polepart\polepart-train-spotr-ngpus1-seed8295-20231106-210917-
+  run_name: polepart-train-spotr-ngpus1-seed8295-20231106-210917-
+  save_freq: -1
+  sched: multistep
+  sched_on_epoch: true
+  seed: 8295
+  shape_classes: 1
+  start_epoch: 1
+  step_per_update: 1
+  sync_bn: false
+  task_name: polepart
+  test: false
+  use_amp: false
+  use_gpu: true
+  use_mask: false
+  use_voting: false
+  val_fn: validate
+  val_freq: 1
+  wandb: !!python/object/new:openpoints.utils.config.EasyConfig
+    dictitems:
+      project: PointNext-Polepart
+      tags:
+      - polepart
+      - train
+      - spotr
+      - ngpus1
+      - seed8295
+      use_wandb: false
+  warmup_epochs: 5
+  world_size: 1

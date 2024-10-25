@@ -1,0 +1,99 @@
+model:
+  NAME: BasePartSeg
+  encoder_args:
+    NAME: SPoTrEncoder
+    blocks: [ 1, 1, 1, 1, 1 ] # 1, 1, 1, 2, 1 is better, but not the main focus of this paper
+    strides: [ 1, 2, 2, 2, 2 ]
+    width: 128
+    in_channels: 7
+    num_layers: 3 
+    expansion: 4
+    radius: 0.1
+    radius_scaling: 2.5
+    nsample: 32 # will not improve performance. 
+    gamma: 16
+    num_gp: 16
+    tau_delta: 0.1
+    aggr_args:
+      feature_type: 'dp_df'
+    reduction: 'max'
+    group_args:
+      NAME: 'ballquery'
+      normalize_dp: True
+    conv_args:
+      order: conv-norm-act
+    act_args:
+      act: 'relu' # leakrelu makes training unstable.
+    norm_args:
+      norm: 'bn'  # ln makes training unstable
+  decoder_args:
+    NAME: SPoTrPartDecoder
+  cls_args:
+    NAME: SegHead
+    globals: max,avg  # apped global feature to each point feature
+    num_classes: 12
+    in_channels: null
+    norm_args:
+#      norm: 'bn'
+      norm: 'bn1d'
+
+
+# ---------------------------------------------------------------------------- #
+# Training cfgs
+# ---------------------------------------------------------------------------- #
+batch_size: 1
+val_batch_size: 1
+lr: 0.01
+min_lr: null
+optimizer:
+  NAME: sgd
+#  NAME: adamw
+  weight_decay: 1.0e-4  # the best
+
+#criterion_args:
+#  NAME: Poly1FocalLoss
+
+cls_weighed_loss: True
+criterion_args:
+  NAME: SmoothCrossEntropy
+  label_smoothing: 0.2
+#  NAME: Poly1FocalLoss
+  weight: [0.04, 0.09, 0.08, 0.08, 0.09, 0.08, 0.09, 0.09, 0.09, 0.09, 0.09, 0.09]
+#  weight: [0.1, 1., 1., 1., 1., 1., 1., 1., 1., 1., 1., 1.]
+
+# scheduler
+epochs: 4000
+sched: multistep
+decay_epochs: [1000, 2000, 3000]
+decay_rate: 0.5
+warmup_epochs: 5
+
+#datatransforms:
+#  train: [PointsToTensor, PointCloudScaling, PointCloudCenterAndNormalize,PointCloudJitter,ChromaticDropGPU]
+#  val: [PointsToTensor, PointCloudCenterAndNormalize]
+#  kwargs:
+#    jitter_sigma: 0.001
+#    jitter_clip: 0.005
+#    scale: [0.8, 1.2]
+#    gravity_dim: 1
+#    angle: [0, 1.0, 0]
+datatransforms:
+#  train: [PointsToTensor, PointCloudScaling,PointCloudCenterAndNormalize,PointCloudJitter,ChromaticDropGPU]
+#  val: [PointsToTensor, PointCloudCenterAndNormalize]
+  train: [ChromaticAutoContrast, PointsToTensor, PointCloudCenterAndNormalize, PointCloudScaling, PointCloudXYZAlign, PointCloudJitter, ChromaticDropGPU, ChromaticNormalize]
+#  train: [PointsToTensor, PointCloudCenterAndNormalize]
+  val: [PointsToTensor, PointCloudCenterAndNormalize]
+  vote: [PointCloudScaling, ChromaticDropGPU]
+  kwargs:
+#    jitter_sigma: 0.001
+#    jitter_clip: 0.005
+#    scale: [0.8, 1.2]
+#    gravity_dim: 1
+#    angle: [0, 1.0, 0]
+    color_drop: 0.2
+    gravity_dim: 2
+    scale: [0.9, 1.1]
+    angle: [0, 0, 1]
+    jitter_sigma: 0.005
+    jitter_clip: 0.02
+

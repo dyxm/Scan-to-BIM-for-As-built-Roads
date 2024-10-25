@@ -1,0 +1,77 @@
+model:
+  NAME: BasePartSeg
+  encoder_args:
+    NAME: SPoTrEncoder
+    blocks: [ 1, 1, 1, 1, 1 ] # 1, 1, 1, 2, 1 is better, but not the main focus of this paper
+    strides: [ 1, 2, 2, 2, 2 ]
+    width: 128
+    in_channels: 7
+    num_layers: 3 
+    expansion: 4
+    radius: 0.1
+    radius_scaling: 2.5
+    nsample: 32 # will not improve performance. 
+    gamma: 16
+    num_gp: 16
+    tau_delta: 0.1
+    aggr_args:
+      feature_type: 'dp_df'
+    reduction: 'max'
+    group_args:
+      NAME: 'ballquery'
+      normalize_dp: True
+    conv_args:
+      order: conv-norm-act
+    act_args:
+      act: 'relu' # leakrelu makes training unstable.
+    norm_args:
+      norm: 'bn'  # ln makes training unstable
+  decoder_args:
+    NAME: SPoTrPartDecoder
+  cls_args:
+    NAME: SegHead
+    globals: max,avg  # apped global feature to each point feature
+    num_classes: 12
+    in_channels: null
+    norm_args:
+#      norm: 'bn'
+      norm: 'bn1d'
+
+
+# ---------------------------------------------------------------------------- #
+# Training cfgs
+# ---------------------------------------------------------------------------- #
+batch_size: 2
+val_batch_size: 1
+lr: 0.007
+min_lr: null
+optimizer:
+  NAME: sgd
+  weight_decay: 1.0e-2  # the best
+
+cls_weighed_loss: True
+criterion_args:
+  NAME: SmoothCrossEntropy
+  label_smoothing: 0.2
+  weight: [0.06, 0.09, 0.08, 0.08, 0.09, 0.08, 0.09, 0.09, 0.09, 0.09, 0.09, 0.09]
+
+# scheduler
+epochs: 2500
+sched: multistep
+decay_epochs: [100, 1700, 2200]
+decay_rate: 0.3
+warmup_epochs: 0
+
+#
+datatransforms:
+  train: [PointsToTensor, PointCloudScaling, PointCloudCenterAndNormalize,PointCloudJitter,ChromaticDropGPU]
+  val: [PointsToTensor, PointCloudCenterAndNormalize]
+  kwargs:
+    jitter_sigma: 0.001
+    jitter_clip: 0.005
+    scale: [0.8, 1.2]
+    gravity_dim: 1
+    angle: [0, 1.0, 0]
+
+#
+pretrained_path: '../PolePartSegModels/ckpt_best.path'
