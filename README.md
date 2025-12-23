@@ -61,6 +61,14 @@ Figure 9. Geometric information extraction and IFC representation results: a) in
 ## Citation
 If you find this research useful, consider citing it using:
 ```
+@article{Ding2025, 
+      author = {Yuexiong Ding and Mengtian Yin and Ran Wei and Ioannis Brilakis and Muyang Liu and Xiaowei Luo},
+      title = {Automatic road digital twinning from semantically labeled point cloud data},
+      year = {2025},
+      journal = {Journal of Intelligent Construction},
+      url = {https://www.sciopen.com/article/10.26599/JIC.2026.9180112},
+      doi = {10.26599/JIC.2026.9180112},
+}
 @misc{ding2024scantobimasbuiltroadsautomatic,
       title={Scan-to-BIM for As-built Roads: Automatic Road Digital Twinning from Semantically Labeled Point Cloud Data}, 
       author={Yuexiong Ding and Mengtian Yin and Ran Wei and Ioannis Brilakis and Muyang Liu and Xiaowei Luo},
